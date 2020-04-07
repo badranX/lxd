@@ -24,7 +24,8 @@ for project in $(lxc query "/1.0/projects?recursion=1" | jq .[].name -r); do
             printf 'config: {}\ndevices: {}' | lxc profile edit --project "${project}" default
             continue
         fi
-        lxc profile delete --project "${project}" "${profile}"
+	#TODO: bug report lxc-profile-delete has no flag --project
+        lxc profile delete "${profile}"
     done
 
     if [ "${project}" != "default" ]; then
